@@ -16,4 +16,6 @@ routes.put(
   HouseController.update
 );
 
+routes.delete('/houses', HouseController.destroy);
+
 export default routes;

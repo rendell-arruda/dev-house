@@ -7,6 +7,7 @@ class HouseController {
     const houses = await House.find({ status });
     return res.json(houses);
   }
+
   async store(req, res) {
     const { filename } = req.file;
     const { description, price, location, status } = req.body;
@@ -30,6 +31,7 @@ class HouseController {
     const { description, price, location, status } = req.body;
     const { user_id } = req.headers;
 
+    // Verifica se o usuário é o dono da casa
     const user = await User.findById(user_id);
     const houses = await House.findById(house_id);
 
@@ -50,6 +52,22 @@ class HouseController {
     );
 
     return res.send();
+  }
+
+  async destroy(req, res) {
+    const { house_id } = req.body;
+    const { user_id } = req.headers;
+
+    // Verifica se o usuário é o dono da casa
+    const user = await User.findById(user_id);
+    const houses = await House.findById(house_id);
+
+    if (String(user._id) !== String(houses.user)) {
+      return res.status(401).json({ error: 'Não autorizado' });
+    }
+
+    await House.findByIdAndDelete({ _id: house_id });
+    return res.json({ messege: 'Deletado com sucesso' });
   }
 }
 
