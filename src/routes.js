@@ -1,8 +1,10 @@
 import { Router } from 'express';
-import SessionController from './controllers/SessionController';
-import HouseController from './controllers/HouseController';
 import multer from 'multer';
 import uploudConfig from './config/uploud';
+
+import SessionController from './controllers/SessionController';
+import HouseController from './controllers/HouseController';
+import DashboardController from './controllers/DashboardController';
 
 const routes = new Router();
 const uploud = multer(uploudConfig);
@@ -17,5 +19,7 @@ routes.put(
 );
 
 routes.delete('/houses', HouseController.destroy);
+
+routes.get('/dashboard', DashboardController.show);
 
 export default routes;
