@@ -14,9 +14,9 @@ routes.post('/sessions', SessionController.store);
 routes.post('/houses', uploud.single('thumbnail'), HouseController.store);
 routes.get('/houses', HouseController.index);
 routes.put(
-  '/houses/:house_id',
-  uploud.single('thumbnail'),
-  HouseController.update
+    '/houses/:house_id',
+    uploud.single('thumbnail'),
+    HouseController.update
 );
 
 routes.delete('/houses', HouseController.destroy);
